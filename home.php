@@ -117,7 +117,7 @@ include 'components/wishlist_cart.php';
       <img src="images/icon3.png" alt="">
       <h3>cereals</h3>
    </a>
-
+   
    <!-- <a href="category.php?category=mouse" class="swiper-slide slide">
       <img src="images/icon-4.png" alt="">
       <h3>mouse</h3>
