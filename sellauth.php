@@ -224,11 +224,17 @@ if(isset($_GET['delete'])){
 
 </section>
 <section class="add-products">
-
    <h1 class="heading">add product</h1>
+   <?php
+      // Check if the user is a seller
+      $check_seller = $conn->prepare("SELECT * FROM `sellers` WHERE user_id = ?");
+      $check_seller->execute([$user_id]);
 
-   <form action="" method="post" enctype="multipart/form-data">
-      <div class="flex">
+      if ($check_seller->rowCount() > 0) {
+         $seller_status = $check_seller->fetch(PDO::FETCH_ASSOC)['seller_status'];
+   ?>
+      <form action="" method="post" enctype="multipart/form-data">
+         <div class="flex">
          <div class="inputBox">
             <span>product name (required)</span>
             <input type="text" class="box" required maxlength="100" placeholder="enter product name" name="name">
@@ -263,9 +269,17 @@ if(isset($_GET['delete'])){
          </div>
       </div>
       
-      <input type="submit"  value="add product" class="btn <?= (strcmp($i,'pending')==0)?'disabled':''; ?>" name="add_products">
-   </form>
-
+      <input type="submit" value="add product" class="btn <?= (strcmp($seller_status, 'pending') == 0) ? 'disabled' : ''; ?>" name="add_products" <?= (strcmp($seller_status, 'pending') == 0) ? 'disabled' : ''; ?>>
+      </form>
+   <?php
+      } else {
+   ?>
+      <div class="alert">
+         You are not an authorized seller. Kindly register to sell your products.
+      </div>
+   <?php
+      }
+   ?>
 </section>
 
 <section class="show-products">
@@ -301,18 +315,6 @@ if(isset($_GET['delete'])){
    </div>
 
    </section>
-
-
-
-
-
-
-
-
-
-
-
-
 <?php include 'components/footer.php'; ?>
 
 <script src="js/script.js"></script>

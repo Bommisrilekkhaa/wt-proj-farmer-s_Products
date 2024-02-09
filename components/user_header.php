@@ -15,8 +15,8 @@
 
    <section class="flex">
       <div class="cmpname">
-      <img src="images\logo.webp" width=15% height=15% />
-      <b><a href="home.php" class="logo"><span style="margin:3%;">Acro</span></a></b>
+      <img src="images\logo.png" width=50% height=50% />
+      <b><a href="home.php" class="logo"><span style="margin:3%;"></span></a></b>
       
       </div>
       
@@ -33,13 +33,19 @@
 
       <div class="icons">
          <?php
-            $count_wishlist_items = $conn->prepare("SELECT * FROM `wishlist` WHERE user_id = ?");
-            $count_wishlist_items->execute([$user_id]);
-            $total_wishlist_counts = $count_wishlist_items->rowCount();
+            $total_wishlist_counts = 0;
+            $total_cart_counts = 0;
 
-            $count_cart_items = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
-            $count_cart_items->execute([$user_id]);
-            $total_cart_counts = $count_cart_items->rowCount();
+            // Check if user is logged in
+            if(isset($user_id) && !empty($user_id)){
+               $count_wishlist_items = $conn->prepare("SELECT * FROM `wishlist` WHERE user_id = ?");
+               $count_wishlist_items->execute([$user_id]);
+               $total_wishlist_counts = $count_wishlist_items->rowCount();
+
+               $count_cart_items = $conn->prepare("SELECT * FROM `cart` WHERE user_id = ?");
+               $count_cart_items->execute([$user_id]);
+               $total_cart_counts = $count_cart_items->rowCount();
+            }
          ?>
          <div id="menu-btn" class="fas fa-bars"></div>
          <a href="search_page.php"><i class="fas fa-search"></i></a>
@@ -47,16 +53,13 @@
          <a href="cart.php"><i class="fas fa-shopping-cart"></i><span>(<?= $total_cart_counts; ?>)</span></a>
          <div id="user-btn" class="fas fa-user"></div>
       </div>
-      <!-- <div class="flex-btn">
-      <a href="admin/products.php" class="option-btn">Sell</a>
-      </div> -->
 
       <div class="profile">
          <?php          
             $select_profile = $conn->prepare("SELECT * FROM `users` WHERE id = ?");
             $select_profile->execute([$user_id]);
             if($select_profile->rowCount() > 0){
-            $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
+               $fetch_profile = $select_profile->fetch(PDO::FETCH_ASSOC);
          ?>
          <p><?= $fetch_profile["name"]; ?></p>
          <a href="update_user.php" class="btn">update profile</a>
@@ -66,7 +69,7 @@
          </div>
          <a href="components/user_logout.php" class="delete-btn" onclick="return confirm('logout from the website?');">logout</a> 
          <?php
-            }else{
+            } else {
          ?>
          <p>please login or register first!</p>
          <div class="flex-btn">
@@ -77,11 +80,8 @@
             }
          ?>      
          
-         
       </div>
-
-      
 
    </section>
 
-</header>
+</header> 

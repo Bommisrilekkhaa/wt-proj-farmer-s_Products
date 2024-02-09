@@ -22,7 +22,7 @@
          <h3>contact us</h3>
          <a href="tel:1234567890"><i class="fas fa-phone"></i> +123 456 7890</a>
          <a href="tel:11122233333"><i class="fas fa-phone"></i> +111 222 3333</a>
-         <a href="mailto:shaikh@gmail.com"><i class="fas fa-envelope"></i> acro.com</a>
+         <a href="mailto:shaikh@gmail.com"><i class="fas fa-envelope"></i> ecoharv.com</a>
          <a href="https://www.google.com/myplace"><i class="fas fa-map-marker-alt"></i> xyz, india - 909090 </a>
       </div>
 
@@ -36,6 +36,6 @@
 
    </section>
 
-   <div class="credit">&copy; copyright @ <?= date('Y'); ?> by <span>ACro web team</span> | all rights reserved!</div>
+   <div class="credit">&copy; copyright @ <?= date('Y'); ?> by <span>EcoHarv web team</span> | all rights reserved!</div>
 
 </footer>
